@@ -1,5 +1,7 @@
 package com.example.pokedex_app.components
 
+import android.R.attr.contentDescription
+import android.R.attr.name
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -19,19 +21,16 @@ import androidx.compose.ui.unit.sp
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AddCircle
 import androidx.compose.material3.Icon
+import coil.compose.AsyncImage
 
 val PokemonCardGreen = Color(0xFF8DC65F)
-
-val PokemonCardInnerBorder = Color(0xFFE0E0E0)
-
-val PlaceholderBackground = Color(0xFFF0F0F0)
 
 
 @Composable
 fun PokemonCard(
-    pokemonImage: Painter,
+    pokemonImage: String,
     pokemonName: String,
-    pokedexNumber: String,
+    pokemonNumber: String,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -50,36 +49,23 @@ fun PokemonCard(
                 modifier = Modifier
                     .fillMaxWidth()
                     .weight(1f)
-                    .padding(16.dp),
+                    .padding(8.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.TopEnd) {
                     Text(
-                        text = pokedexNumber,
-                        color = PokemonCardInnerBorder.copy(alpha = 0.6f),
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Light,
-                        modifier = Modifier.padding(end = 12.dp, top = 8.dp)
+                        text = pokemonNumber,
+                        fontSize = 10.sp,
+                        fontWeight = FontWeight.Light
                     )
                 }
 
-                Spacer(modifier = Modifier.height(8.dp))
+                AsyncImage(
+                    model = pokemonImage,
+                    contentDescription = pokemonName,
+                    modifier = Modifier.fillMaxSize()
+                )
 
-                Box(
-                    modifier = Modifier
-                        .size(160.dp)
-                        .clip(RoundedCornerShape(12.dp))
-                        .background(PlaceholderBackground),
-                    contentAlignment = Alignment.Center
-                ) {
-
-                    Icon(
-                        imageVector = Icons.Default.AddCircle,
-                        contentDescription = "Placeholder",
-                        tint = PokemonCardInnerBorder,
-                        modifier = Modifier.size(64.dp)
-                    )
-                }
             }
 
             Box(
