@@ -17,6 +17,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +40,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.pokedex_app.components.PokemonCard
 import com.example.pokedex_app.ui.theme.Pokedex_appTheme
 
 class MainActivity : ComponentActivity() {
@@ -90,7 +93,7 @@ fun startScreen(modifier: Modifier = Modifier) {
         ) {
             OutlinedTextField(
                 modifier = Modifier.fillMaxWidth()
-                .padding(0.dp, 8.dp),
+                    .padding(0.dp, 8.dp),
                 value = "",
                 placeholder = {
                     Text(
@@ -101,9 +104,12 @@ fun startScreen(modifier: Modifier = Modifier) {
                 },
                 onValueChange = {},
                 trailingIcon = {
-                    IconButton(onClick = {}) {
+                    IconButton(
+                        onClick = {}
+                    ) {
                         Icon(
                             painter = painterResource(R.drawable.searchicon),
+                            modifier = Modifier.size(20.dp),
                             contentDescription = "Ícone de pesquisa"
                         )
                     }
@@ -116,6 +122,21 @@ fun startScreen(modifier: Modifier = Modifier) {
                 )
             )
         }
-        LazyColumn(modifier = modifier.fillMaxSize()) { }
+        Column() {
+            LazyVerticalGrid(GridCells.Fixed(3),
+                modifier = Modifier.padding(24.dp, 0.dp),
+                horizontalArrangement = Arrangement.spacedBy(5.dp),
+                verticalArrangement = Arrangement.spacedBy(5.dp)) {
+
+                items(30) { index ->
+                    PokemonCard(
+                        pokemonImage = painterResource(id = R.drawable.pokeball),
+                        pokemonName = "Bulbasaur",
+                        pokedexNumber = "#001"
+                    )
+                }
+
+            }
+        }
     }
 }
